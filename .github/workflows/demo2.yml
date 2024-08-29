@@ -1,0 +1,28 @@
+name: Print Commit Timestamp
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print-timestamp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get commit timestamp
+        id: get_timestamp
+        run: |
+          commit_timestamp=$(git log -1 --format=%cd --date=iso)
+          echo "Commit timestamp: $commit_timestamp"
+          echo "DATE=$(echo $commit_timestamp | cut -d 'T' -f 1)" >> $GITHUB_ENV
+          echo "TIME=$(echo $commit_timestamp | cut -d 'T' -f 2 | cut -d '+' -f 1)" >> $GITHUB_ENV
+
+      - name: Print date and time
+        run: |
+          echo "Date: ${{ env.DATE }}"
+          echo "Time: ${{ env.TIME }}"
+
