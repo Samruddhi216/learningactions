@@ -7,7 +7,7 @@ on:
 
 jobs:
   commit-timestamp:
-    runs-on: linux-standard
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repo code
         uses: actions/checkout@v4
