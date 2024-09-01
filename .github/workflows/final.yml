@@ -11,19 +11,17 @@ jobs:
     steps:
       - name: Check out repo code
         uses: actions/checkout@v4
+
       - name: Get timestamps
         run: |
           # For latest commit hash
           HASH=$(git rev-parse HEAD)
-
           # ISO 8601 Format - https://www.git-scm.com/docs/git-log#Documentation/git-log.txt-emciem
           TIMESTAMP=$(git show -s --format=%ci $HASH)
-
           # Format - date time offset
-          DATE=$(echo $TIMESTAMP | cut -d' '-f1)
-          TIME=$(echo $TIMESTAMP | cut -d' '-f2)
-          OFFSET=$(echo TIMESTAMP | cut -d' '-f3)
-
+          DATE=$(echo $TIMESTAMP | cut -d' ' -f1)
+          TIME=$(echo $TIMESTAMP | cut -d' ' -f2)
+          OFFSET=$(echo $TIMESTAMP | cut -d' ' -f3)
           echo "Commit details:"
           echo "Date: $DATE"
           echo "Time: $TIME"
